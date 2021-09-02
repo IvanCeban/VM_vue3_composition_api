@@ -2,13 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    tasks: [
-      {
-        title: 'test 1',
-        description: 'test desc 1',
-        deadline: 'date 1'
-      }
-    ]
+    tasks: []
   },
   mutations: {
     addTask(state, payload) {

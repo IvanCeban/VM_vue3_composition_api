@@ -7,14 +7,17 @@
         {{task.title}}
         <AppStatus :type="'done'" />
       </h2>
+      <h4>{{task.id}}</h4>
       <p>
         <strong>
           <small>
-            {{new Date().toLocaleDateString()}}
+            {{getDeadline(task.deadline)}}
           </small>
         </strong>
       </p>
-      <button class="btn primary">Посмотреть</button>
+      <router-link :to="'/task/' + task.id">
+        <button class="btn primary">Посмотреть</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -27,10 +30,15 @@ export default {
   setup () {
     const store = useStore()
     const tasks = store.getters.tasks
+    function getDeadline(date) {
+      const deadline = new Date(date)
+      return deadline.toLocaleDateString()
+    }
 
     console.log(tasks.value)
     return {
-      tasks
+      tasks,
+      getDeadline
     }
   },
   components: {AppStatus}
