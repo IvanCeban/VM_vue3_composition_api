@@ -422,8 +422,13 @@ h3 {
 }
 
 .badge.warning {
-    border-color: #c25205;
-    color: #c25205;
+    border-color: #da6d28;
+    color: #da6d28;
+}
+
+.badge.info {
+    border-color: #057dc2;
+    color: #057dc2;
 }
 
 .text-white {

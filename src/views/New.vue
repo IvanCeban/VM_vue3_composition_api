@@ -24,10 +24,12 @@
 <script>
   import {ref, watch} from 'vue'
   import {useStore} from 'vuex'
+  import {useRouter} from 'vue-router'
   export default {
     name: 'New',
     setup () {
       const store = useStore()
+      const router = useRouter()
       const title = ref('')
       const description = ref('')
       const deadline = ref('')
@@ -35,15 +37,18 @@
 
       function createTask() {
         store.dispatch('addTask', {
-          id: title.value.slice(4) + '_' + Math.floor(1000 + Math.random() * 9000),
+          id: title.value.slice(0, 4) + '_' + Math.floor(1000 + Math.random() * 9000),
           title: title.value,
           deadline: deadline.value,
-          description: description.value
+          description: description.value,
+          status: new Date(deadline.value) > new Date() ? 'active' : 'canceled'
         })
 
         title.value = ''
         deadline.value = ''
         description.value = ''
+
+        router.push('/')
       }
 
       watch([title, deadline, description], (newValues, oldValues) => {

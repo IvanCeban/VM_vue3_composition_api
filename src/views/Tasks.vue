@@ -5,9 +5,8 @@
     <div class="card" v-for="task in tasks">
       <h2 class="card-title">
         {{task.title}}
-        <AppStatus :type="'done'" />
+        <AppStatus :type="task.status" />
       </h2>
-      <h4>{{task.id}}</h4>
       <p>
         <strong>
           <small>
@@ -35,7 +34,6 @@ export default {
       return deadline.toLocaleDateString()
     }
 
-    console.log(tasks.value)
     return {
       tasks,
       getDeadline
