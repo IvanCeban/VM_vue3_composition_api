@@ -1,7 +1,11 @@
 <template>
   <h1 class="text-white center" v-if="!tasks.length">Задач пока нет</h1>
   <div v-if="tasks.length">
-    <h3 class="text-white">Всего активных задач: {{activeTasksAmount}}</h3>
+    <div class="title-wrapper">
+      <h3 class="text-white">Всего активных задач: {{activeTasksAmount}}</h3>
+      <button class="btn danger" @click="$store.dispatch('removeAllTasks')">Удалить все задачи</button>
+    </div>
+
     <div class="card" v-for="task in tasks">
       <h2 class="card-title">
         {{task.title}}
@@ -49,3 +53,16 @@ export default {
   components: {AppStatus}
 }
 </script>
+
+
+<style scoped>
+  .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .title-wrapper h3,
+  .title-wrapper .btn {
+    margin: 0;
+  }
+</style>

@@ -14,6 +14,9 @@ export default createStore({
     },
     setTasks(state, payload) {
       state.tasks = payload
+    },
+    removeAllTasks(state) {
+      state.tasks = []
     }
   },
   actions: {
@@ -54,7 +57,17 @@ export default createStore({
       })
 
       commit('setTasks', res)
-    }
+    },
+
+    async removeAllTasks({commit}) {
+      await fetch(`https://vm-vue3-compositionapi-default-rtdb.europe-west1.firebasedatabase.app/tasks.json`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      commit('removeAllTasks')
+    },
   },
   getters: {
     tasks(state) {
