@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h2>There is no such page, sorry</h2>
+    <h1>Упс, а страницы то и нет...</h1>
   </div>
 </template>
 
@@ -9,3 +9,9 @@ export default {
   name: 'NotFound'
 }
 </script>
+
+<style scoped>
+  h1 {
+    text-align: center;
+  }
+</style>

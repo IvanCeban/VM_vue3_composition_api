@@ -1,7 +1,7 @@
 <template>
   <h1 class="text-white center" v-if="!tasks.length">Задач пока нет</h1>
   <div v-if="tasks.length">
-    <h3 class="text-white">Всего активных задач: {{tasks.length}}</h3>
+    <h3 class="text-white">Всего активных задач: {{activeTasksAmount}}</h3>
     <div class="card" v-for="task in tasks">
       <h2 class="card-title">
         {{task.title}}
@@ -24,11 +24,17 @@
 <script>
 import AppStatus from '../components/AppStatus'
 import {useStore} from 'vuex'
+import {computed, onUpdated } from 'vue'
+
 export default {
   name: "Tasks",
   setup () {
     const store = useStore()
-    const tasks = store.getters.tasks
+    store.dispatch('getTasks')
+
+    const tasks = computed(() => store.getters.tasks)
+    const activeTasksAmount = computed(() => store.getters.activeTasksAmount)
+
     function getDeadline(date) {
       const deadline = new Date(date)
       return deadline.toLocaleDateString()
@@ -36,6 +42,7 @@ export default {
 
     return {
       tasks,
+      activeTasksAmount,
       getDeadline
     }
   },

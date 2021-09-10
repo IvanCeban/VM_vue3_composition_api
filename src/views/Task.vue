@@ -5,7 +5,7 @@
     <p><strong>Дэдлайн</strong>: {{currentTask.deadline}}</p>
     <p><strong>Описание</strong>: {{currentTask.description}}</p>
     <div>
-      <button class="btn" @click="setStatus('in_progress')">Взять в работу</button>
+      <button class="btn" @click="setStatus('pending')">Взять в работу</button>
       <button class="btn primary" @click="setStatus('done')">Завершить</button>
       <button class="btn danger" @click="setStatus('canceled')">Отменить</button>
     </div>
@@ -29,7 +29,7 @@ export default {
 
     function setStatus(status) {
       store.dispatch('setTaskStatus', {
-        id: props.taskId,
+        dbTaskId: currentTask.dbTaskId,
         status: status
       })
     }
@@ -40,7 +40,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

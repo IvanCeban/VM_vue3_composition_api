@@ -12,7 +12,7 @@ import {computed} from 'vue'
         switch(props.type) {
           case 'done':
             return {title: 'Выполнено', style: 'primary'}
-          case 'in_progress':
+          case 'pending':
             return {title: 'Выполняется', style: 'warning'}
           case 'canceled':
             return {title: 'Отменено', style: 'danger'}
