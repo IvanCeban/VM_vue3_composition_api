@@ -17,6 +17,10 @@ export default createStore({
     },
     removeAllTasks(state) {
       state.tasks = []
+    },
+    removeCurrentTask(state, payload) {
+      const currentTaskIndex = state.tasks.findIndex(el => el.dbTaskId === payload)
+      state.tasks.splice(currentTaskIndex, 1)
     }
   },
   actions: {
@@ -34,7 +38,7 @@ export default createStore({
         method: 'PATCH',
         body: JSON.stringify({dbTaskId: dbTaskId})
       })
-      commit('addTask', {...payload, dbTaskId: dbTaskId})
+      dispatch('getTasks')
     },
 
     async setTaskStatus({commit, dispatch}, payload) {
@@ -68,6 +72,16 @@ export default createStore({
       })
       commit('removeAllTasks')
     },
+
+    async removeCurrentTask({commit}, payload) {
+      await fetch(`https://vm-vue3-compositionapi-default-rtdb.europe-west1.firebasedatabase.app/tasks/${payload}.json`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      commit('removeCurrentTask', payload)
+    }
   },
   getters: {
     tasks(state) {

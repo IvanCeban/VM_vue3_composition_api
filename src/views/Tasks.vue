@@ -18,9 +18,12 @@
           </small>
         </strong>
       </p>
-      <router-link :to="'/task/' + task.id">
-        <button class="btn primary">Посмотреть</button>
-      </router-link>
+      <div class="buttons-container">
+        <router-link :to="'/task/' + task.id">
+          <button class="btn primary">Посмотреть</button>
+        </router-link>
+        <button class="btn danger remove" @click="$store.dispatch('removeCurrentTask', task.dbTaskId)">Удалить</button>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +31,7 @@
 <script>
 import AppStatus from '../components/AppStatus'
 import {useStore} from 'vuex'
-import {computed, onUpdated } from 'vue'
+import {computed} from 'vue'
 
 export default {
   name: "Tasks",
@@ -62,7 +65,12 @@ export default {
     margin-bottom: 14px;
   }
   .title-wrapper h3,
-  .title-wrapper .btn {
+  .title-wrapper .btn,
+  .buttons-container .btn {
     margin: 0;
+  }
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
   }
 </style>
