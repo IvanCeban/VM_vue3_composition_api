@@ -1,11 +1,18 @@
 <template>
   <h1 class="text-white center" v-if="!tasks.length">Задач пока нет</h1>
   <div v-if="tasks.length">
-    <div class="title-wrapper">
-      <h3 class="text-white">Всего активных задач: {{activeTasksAmount}}</h3>
+    <h3 class="text-white">Всего активных задач: {{activeTasksAmount}}</h3>
+    <div class="actions">
+      <div class="form-control">
+        <label for="city">Сортировка по: </label>
+        <select id="city" v-model="sortBy" @change="onChange($event)">
+          <option value="creationDate">Дате создания</option>
+          <option value="deadline">Дэдлайну</option>
+          <option value="status">Статусу</option>
+        </select>
+      </div>
       <button class="btn danger" @click="$store.dispatch('removeAllTasks')">Удалить все задачи</button>
     </div>
-
     <div class="card" v-for="task in tasks">
       <h2 class="card-title">
         {{task.title}}
@@ -18,7 +25,7 @@
           </small>
         </strong>
       </p>
-      <div class="buttons-container">
+      <div class="actions">
         <router-link :to="'/task/' + task.id">
           <button class="btn primary">Посмотреть</button>
         </router-link>
@@ -31,14 +38,14 @@
 <script>
 import AppStatus from '../components/AppStatus'
 import {useStore} from 'vuex'
-import {computed} from 'vue'
+import {computed, ref} from 'vue'
 
 export default {
   name: "Tasks",
   setup () {
     const store = useStore()
     store.dispatch('getTasks')
-
+    const sortBy = ref('creationDate')
     const tasks = computed(() => store.getters.tasks)
     const activeTasksAmount = computed(() => store.getters.activeTasksAmount)
 
@@ -47,10 +54,16 @@ export default {
       return deadline.toLocaleDateString()
     }
 
+    function onChange(event) {
+      store.dispatch('sortTasks', event.target.value)
+    }
+
     return {
       tasks,
       activeTasksAmount,
-      getDeadline
+      getDeadline,
+      onChange,
+      sortBy
     }
   },
   components: {AppStatus}
@@ -59,18 +72,22 @@ export default {
 
 
 <style scoped>
-  .title-wrapper {
+  .actions {
     display: flex;
     justify-content: space-between;
     margin-bottom: 14px;
   }
-  .title-wrapper h3,
-  .title-wrapper .btn,
-  .buttons-container .btn {
+  .actions .btn {
     margin: 0;
   }
-  .buttons-container {
+  .actions .form-control {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+  }
+  .actions .form-control label{
+    white-space: nowrap;
+    margin-right: 1rem;
+    color: white;
   }
 </style>

@@ -385,7 +385,7 @@ h3 {
     display: flex;
 }
 
-.navbar-menu li {
+.navbar-menu li:not(:last-child) {
     margin-right: 2rem;
 }
 

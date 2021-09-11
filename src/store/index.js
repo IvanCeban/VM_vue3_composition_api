@@ -21,6 +21,17 @@ export default createStore({
     removeCurrentTask(state, payload) {
       const currentTaskIndex = state.tasks.findIndex(el => el.dbTaskId === payload)
       state.tasks.splice(currentTaskIndex, 1)
+    },
+    sortTasks(state, payload) {
+      state.tasks = state.tasks.sort((a, b) => {
+        if (a[payload] < b[payload]) {
+          return -1;
+        }
+        if (a[payload] > b[payload]) {
+          return 1;
+        }
+        return 0;
+      })
     }
   },
   actions: {
@@ -81,6 +92,10 @@ export default createStore({
         }
       })
       commit('removeCurrentTask', payload)
+    },
+
+    sortTasks({commit}, payload) {
+      commit('sortTasks', payload)
     }
   },
   getters: {

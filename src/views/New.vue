@@ -39,6 +39,7 @@
         store.dispatch('addTask', {
           id: title.value.slice(0, 4) + '_' + Math.floor(1000 + Math.random() * 9000),
           title: title.value,
+          creationDate: new Date(),
           deadline: deadline.value,
           description: description.value,
           status: new Date(deadline.value) > new Date() ? 'active' : 'canceled'
