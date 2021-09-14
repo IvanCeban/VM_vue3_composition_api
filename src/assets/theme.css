@@ -438,3 +438,22 @@ h3 {
 .text-white.center {
     text-align: center;
 }
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+.actions .btn {
+    margin: 0;
+}
+.actions .form-control {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+.actions .form-control label{
+    white-space: nowrap;
+    margin-right: 1rem;
+    color: white;
+}
