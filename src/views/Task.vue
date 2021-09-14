@@ -25,7 +25,7 @@ export default {
   setup (props) {
     const store = useStore()
     const tasks = store.getters.tasks
-    const currentTask = tasks.find(el => el.id === props.taskId)
+    const currentTask = tasks.find(el => el.dbTaskId === props.taskId)
 
     function setStatus(status) {
       store.dispatch('setTaskStatus', {

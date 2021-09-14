@@ -12,7 +12,7 @@
       </strong>
     </p>
     <div class="actions">
-      <router-link :to="'/task/' + task.id">
+      <router-link :to="'/task/' + task.dbTaskId">
         <button class="btn primary">Посмотреть</button>
       </router-link>
       <button class="btn danger remove" @click="$store.dispatch('removeCurrentTask', task.dbTaskId)">Удалить</button>

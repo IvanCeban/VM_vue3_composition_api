@@ -13,7 +13,7 @@
 import AppTasksItem from '../components/AppTasksItem'
 import AppActions from '../components/AppActions'
 import {useStore} from 'vuex'
-import {computed, ref} from 'vue'
+import {computed} from 'vue'
 
 export default {
   name: "Tasks",
