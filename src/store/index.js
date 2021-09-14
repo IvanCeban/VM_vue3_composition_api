@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-
+const bdUrl ='https://vm-vue3-compositionapi-default-rtdb.europe-west1.firebasedatabase.app/tasks'
 export default createStore({
   state: {
     tasks: [],
@@ -53,7 +53,7 @@ export default createStore({
     },
 
     async setTaskStatus({commit, dispatch}, payload) {
-      await fetch(`https://vm-vue3-compositionapi-default-rtdb.europe-west1.firebasedatabase.app/tasks/${payload.dbTaskId}.json`, {
+      await fetch(`${bdUrl}/${payload.dbTaskId}.json`, {
         method: 'PATCH',
         body: JSON.stringify({status: payload.status})
       })
@@ -61,7 +61,7 @@ export default createStore({
     },
 
     async getTasks({commit}) {
-      const response = await fetch('https://vm-vue3-compositionapi-default-rtdb.europe-west1.firebasedatabase.app/tasks.json')
+      const response = await fetch(`${bdUrl}.json`)
       const data = await response.json()
 
       const res = Object.keys(data).map(key => {
@@ -85,7 +85,7 @@ export default createStore({
     },
 
     async removeCurrentTask({commit}, payload) {
-      await fetch(`https://vm-vue3-compositionapi-default-rtdb.europe-west1.firebasedatabase.app/tasks/${payload}.json`, {
+      await fetch(`${bdUrl}/${payload}.json`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
